@@ -262,7 +262,7 @@ fig.show()
 px.histogram(df, x='Gender', color='treatment', barmode='group', text_auto=True,
              title='Treatment Counts by Gender').show()
 
-#"""Men and women have nearly equal treatment counts when adjusted for the dataset’s male majority."""
+#"""Men and women have nearly equal treatment counts when adjusted for the dataset  male majority."""
 
 treatment_rate_by_gender = df.groupby('Gender', observed=False)['treatment'].mean().reset_index(name='treatment_rate')
 
