@@ -254,7 +254,7 @@ fig.update_layout(
 )
 fig.show()
 
-#"""Most respondents are in their 20s and 30s, with male participants dominating all age groups.
+#"""Most respondents are in their 20 and 30, with male participants dominating all age groups.
 
 #How does the proportion of people receiving treatment differ across genders?
 """
