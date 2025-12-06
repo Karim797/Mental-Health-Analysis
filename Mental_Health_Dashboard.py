@@ -1,4 +1,4 @@
-# app.py
+# Mental_Health_Dashboard.py
 
 import numpy as np
 import pandas as pd
@@ -103,6 +103,7 @@ def load_and_clean_data():
         "100-500": 300,
         "500-1000": 750,
         "more than 1000": 1200,
+        "more than 1000 ": 1200,
         "More than 1000": 1200,
     }
     df["company_size"] = df["no_employees"].map(size_map)
@@ -150,13 +151,17 @@ tech_choice = st.sidebar.radio("Company type", tech_options, index=0)
 
 # Country filter
 countries = sorted(df["Country"].dropna().unique().tolist())
+default_countries = countries[:10] if len(countries) > 10 else countries
 selected_countries = st.sidebar.multiselect(
     "Countries",
     options=countries,
-    default=countries[:10] if len(countries) > 10 else countries,
+    default=default_countries,
 )
 
-# Apply filters
+# ---------------------------
+# 4. Apply filters
+# ---------------------------
+
 filtered_df = df.copy()
 filtered_df = filtered_df[
     filtered_df["Gender"].isin(selected_gender) &
@@ -174,10 +179,18 @@ if tech_choice != "All":
     is_tech = (tech_choice == "Tech only")
     filtered_df = filtered_df[filtered_df["tech_company"] == is_tech]
 
+# 👉 IMPORTANT: avoid errors when filters give 0 rows
+if filtered_df.empty:
+    st.warning(
+        "No respondents match the current filters. "
+        "Try selecting more countries or changing the filters."
+    )
+    st.stop()
+
 st.caption(f"Showing **{len(filtered_df)}** respondents after filters.")
 
 # ---------------------------
-# 4. KPI cards
+# 5. KPI cards
 # ---------------------------
 
 col1, col2, col3 = st.columns(3)
@@ -186,21 +199,21 @@ with col1:
     st.metric("Total respondents", len(filtered_df))
 
 with col2:
-    if "treatment" in filtered_df.columns and len(filtered_df) > 0:
+    if "treatment" in filtered_df.columns:
         treatment_rate = filtered_df["treatment"].mean() * 100
         st.metric("Treatment rate", f"{treatment_rate:.1f}%")
     else:
         st.metric("Treatment rate", "N/A")
 
 with col3:
-    if "family_history" in filtered_df.columns and len(filtered_df) > 0:
+    if "family_history" in filtered_df.columns:
         fam_rate = filtered_df["family_history"].mean() * 100
         st.metric("Family history (Yes)", f"{fam_rate:.1f}%")
     else:
         st.metric("Family history", "N/A")
 
 # ---------------------------
-# 5. Tabs
+# 6. Tabs
 # ---------------------------
 
 tab1, tab2, tab3, tab4 = st.tabs([
@@ -264,7 +277,8 @@ with tab2:
     st.markdown("---")
     st.subheader("Remote work & mental-health consequences")
 
-    if "remote_work" in filtered_df.columns:
+    if "remote_work" in filtered_df.columns and \
+       "mental_health_consequence" in filtered_df.columns:
         fig_remote = px.histogram(
             filtered_df,
             x="remote_work",
@@ -302,10 +316,9 @@ with tab3:
     st.subheader("Treatment by company size (%)")
 
     if "no_employees" in filtered_df.columns and "treatment" in filtered_df.columns:
-        # Order company sizes
         employee_order = [
             "1-5", "6-25", "26-100",
-            "100-500", "500-1000", "more than 1000", "More than 1000"
+            "100-500", "500-1000", "more than 1000", "more than 1000 "
         ]
         filtered_df["no_employees"] = pd.Categorical(
             filtered_df["no_employees"], categories=employee_order, ordered=True
