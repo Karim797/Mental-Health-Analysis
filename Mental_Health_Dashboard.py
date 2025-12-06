@@ -24,7 +24,7 @@ def load_and_clean_data():
         "female (cis)", "queer/she/they", "cis-female/femme"
     ]
 
-    male_terms = [
+    male_terms = [ "cis man",
         "msle", "guy (-ish) ^_^", "man", "mal", "make",
         "male (cis)", "male", "m", "male,m",
         "male-ish", "malr", "maile", "mail", "cis male",
