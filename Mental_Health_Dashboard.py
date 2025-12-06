@@ -227,36 +227,22 @@ tab1, tab2, tab3, tab4 = st.tabs([
 with tab1:
     st.subheader("Gender distribution")
 
-    gender_counts = (
-        filtered_df["Gender"]
-        .value_counts(dropna=False)
-        .reset_index()
-        .rename(columns={"index": "Gender", "Gender": "Count"})
-    )
+    # Count genders directly
+    gender_counts = filtered_df["Gender"].value_counts(dropna=False)
 
+    # Prepare simple lists for Plotly
+    labels = gender_counts.index.astype(str).tolist()
+    values = gender_counts.values.tolist()
+
+    # Create pie chart safely
     fig_gender_pie = px.pie(
-        gender_counts,
-        names="Gender",
-        values="Count",
+        names=labels,
+        values=values,
         title="Gender distribution",
         hole=0.4
     )
+
     st.plotly_chart(fig_gender_pie, use_container_width=True)
-
-    st.markdown("---")
-    st.subheader("Age distribution by gender")
-
-    if "Gender" in filtered_df.columns:
-        fig_age_gender = px.histogram(
-            filtered_df,
-            x="Age",
-            color="Gender",
-            barmode="overlay",
-            title="Age distribution by gender",
-        )
-        st.plotly_chart(fig_age_gender, use_container_width=True)
-    else:
-        st.info("No gender information available for this filtered subset.")
 
 # -------- Tab 2: Mental Health & Treatment --------
 with tab2:
