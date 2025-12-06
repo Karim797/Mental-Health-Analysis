@@ -302,7 +302,7 @@ fig.show()
 
 #"""Females report a family history of mental illness slightly more often than males, suggesting awareness differences.
 
-#How does company size relate to the frequency of work interference from mental-health issues?
+#How does company size relate to the frequency of work interference from mental health issues?
 """
 
 tmp = df.dropna(subset=["no_employees", "work_interfere"])
@@ -322,7 +322,7 @@ fig.show()
 
 #"""Employees in larger companies report more frequent interference of mental health issues with work.
 
-#Which countries have the most respondents reporting mental-health consequences?
+#Which countries have the most respondents reporting mental health consequences?
 """
 
 tmp = (df[df["mental_health_consequence"].eq("Yes")]
@@ -345,7 +345,7 @@ fig.show()
 
 #"""The USA, UK, and Canada have the highest number of respondents reporting mental health consequences.
 
-#Does feeling supported by a supervisor influence whether respondents seek mental-health treatment?
+#Does feeling supported by a supervisor influence whether respondents seek mental health treatment?
 """
 
 tmp = (df.dropna(subset=["supervisor","treatment"])
@@ -367,7 +367,7 @@ fig.update_layout(
 )
 fig.show()
 
-#""" Do employees in tech companies report receiving mental-health benefits more often than non-tech workers?"""
+#""" Do employees in tech companies report receiving mental health benefits more often than non tech workers?"""
 
 fig = px.histogram(
     df.dropna(subset=["tech_company","benefits"]),
@@ -411,7 +411,7 @@ fig.update_layout(
 )
 fig.show()
 
-#"""Does having an anonymity policy correlate with employees’ perceived ease of taking mental-health leave?"""
+#"""Does having an anonymity policy correlate with employees perceived ease of taking mental health leave?"""
 
 ct = (df.dropna(subset=["anonymity","leave"])
         .groupby(["anonymity","leave"]).size()
@@ -432,7 +432,7 @@ fig.update_layout(
 )
 fig.show()
 
-#"""Does offering mental-health benefits increase employees’ willingness to seek professional help?"""
+#"""Does offering mental health benefits increase employees willingness to seek professional help?"""
 
 tmp = df.dropna(subset=["benefits","seek_help"])
 fig = px.histogram(
@@ -451,7 +451,7 @@ fig.update_layout(
 )
 fig.show()
 
-#"""Do tech-company employees report different levels of work interference compared to non-tech employees?"""
+#"""Do tech company employees report different levels of work interference compared to non tech employees?"""
 
 tmp = (df.dropna(subset=["tech_company","work_interfere"])
          .groupby(["tech_company","work_interfere"]).size()
@@ -473,7 +473,7 @@ fig.update_layout(
 )
 fig.show()
 
-#"""Non-tech employees report more frequent work interference than those in tech companies."""
+#"""Non tech employees report more frequent work interference than those in tech companies."""
 
 fig = px.pie(
     df.dropna(subset=["benefits"]),
