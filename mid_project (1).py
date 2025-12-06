@@ -217,9 +217,9 @@ fig.update_layout(
 
 fig.show()
 
-#"""Medium-sized companies (26–500 employees) have the highest treatment rates, while very small and very large companies lag behind.
+#"""Medium sized companies (26–500 employees) have the highest treatment rates, while very small and very large companies lag behind.
 
-#Does age influence how often mental-health issues interfere with work, and does this differ for those in treatment?
+#Does age influence how often mental health issues interfere with work, and does this differ for those in treatment?
 """
 
 fig = px.violin(
