@@ -12,7 +12,7 @@ import seaborn as sns
 import plotly.express as px
 import plotly.graph_objects as go
 
-df = pd.read_csv("/content/sample_data/survey (1).csv")
+df = pd.read_csv('survey.csv')
 
 df.info()
 
