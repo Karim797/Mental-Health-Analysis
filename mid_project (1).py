@@ -160,7 +160,7 @@ fig = px.violin(
 fig.update_layout(xaxis_title='Mental Health Consequence', yaxis_title='Age')
 fig.show()
 
-#"""Respondents aged 25–40 are the most likely to report mental health consequences, especially among females.
+#"""Respondents aged 25 to 40 are the most likely to report mental health consequences, especially among females.
 
 #is there a relationship between employee age, company size, and likelihood of seeking treatment?
 """
