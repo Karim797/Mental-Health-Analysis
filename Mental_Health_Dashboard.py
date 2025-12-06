@@ -318,6 +318,20 @@ with tab2:
             st.plotly_chart(fig_age_mhc, use_container_width=True)
 
     st.markdown("---")
+    st.markdown("---")
+    
+    st.subheader("Treatment counts by gender")
+
+    if "treatment" in filtered_df.columns:
+        fig_trt_counts = px.histogram(
+            filtered_df,
+            x="Gender",
+            color="treatment",
+            barmode="group",
+            text_auto=True,
+            title="Treatment counts by gender",
+        )
+        st.plotly_chart(fig_trt_counts, use_container_width=True)
 
     # 4) Treatment rate by gender
     st.subheader("Treatment rate by gender")
